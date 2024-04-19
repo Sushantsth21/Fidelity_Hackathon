@@ -25,7 +25,7 @@ def index():
 def get_openai_response(user_input):
     try:
         completion = openai.ChatCompletion.create(
-            model="gpt-4-turbo",
+            model="gpt-4",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": user_input}

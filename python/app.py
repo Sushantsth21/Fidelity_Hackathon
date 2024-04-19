@@ -10,14 +10,14 @@ if api_key is None:
     raise ValueError("API key is not set. Please set the OPENAI_API_KEY environment variable.")
 
 #the api-key workds
-
+print(api_key)
 client = OpenAI()
 
 completion = client.chat.completions.create(
-  model="gpt-3.5-turbo",
+  model="gpt-4-turbo",
   messages=[
     {"role": "system", "content": "You are a knowledgeable assistant, skilled in explaining complex financial concepts with clarity and insight."},
-    {"role": "user", "content": "Can you explain the concept of compound interest in a simple and concise manner?"}
+    {"role": "user", "content": "Can you GIVE ME YOUTUBE VIDEO LINKS ABOUT COMPOUND INTREST. SPECIFIC VIDEO LINKS PLEASE"}
   ]
 )
 

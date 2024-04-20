@@ -87,6 +87,10 @@
 </head>
 <body>
     <div class="container">
+        <div id="loading" style="display: none;">
+            <img src="chatgpt\static\ZKZg.gif" alt="Loading..." width="50" height="50">
+            <p>Loading...</p>
+        </div>
         <button id="hahaa" onclick="closeServerAndRedirect()">X</button>
         <h1>Ask Khutruke</h1>
         <form method="post">
@@ -135,14 +139,23 @@
             document.getElementById('video-recommendations').style.display = 'block'; // Show the video recommendations
         }
         function closeServerAndRedirect() {
+            // Show loading animation
+            document.getElementById('loading').style.display = 'block';
+
             // Make an AJAX request to the server shutdown route
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "/quit", true);
             xhr.send();
 
+            // Set a delay of 10 seconds before redirecting
+            setTimeout(function() {
+                // Hide loading animation
+                document.getElementById('loading').style.display = 'none';
+            
             // Redirect to the new HTML file
             window.location.href = "http://127.0.0.1:5001/";
-        }
+        }, 8000); // 10000 milliseconds = 10 seconds
+    }
     </script>
     
 </body>

@@ -48,8 +48,8 @@ def quit_server():
     result = extract_keywords(user_inputs)
     with open("result.txt", "w") as file:
         file.write(result)
+    
     launch_second_app()  # Launch the second Flask app
-    time.sleep(13)  # Introduce a delay of 5 seconds
     os._exit(0)  # Exit the server process
     
 
@@ -65,7 +65,7 @@ def send_data():
 def get_openai_response(user_input):
     try:
         completion = openai.ChatCompletion.create(
-            model="gpt-4",
+            model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are a helpful financial assistant. Provide a feedback within 3 sentences. Dont forget you are  Khutruke,  dedicated virtual financial assistant proudly brought to you by FidelityXOpenAI"},
                 {"role": "user", "content": user_input}

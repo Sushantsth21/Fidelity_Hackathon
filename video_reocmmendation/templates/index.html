@@ -33,8 +33,9 @@
 <h1>Recommended Videos</h1>
 
 <div class="container">
-    <button id="hahaa" onclick="closeServerAndRedirect()">X</button>
-    {% for index, video in recommended_videos.iterrows() %}
+    <button id="hahaa" style="position:fixed;top:10px;right:10px;background-color:red;padding:5px 10px;border:none;border-radius:5px;">
+        <a href="http://localhost:5173/" style="text-decoration:none;color:white;">X</a>
+    </button>    {% for index, video in recommended_videos.iterrows() %}
     <div class="column">
         <h3>{{ video['Title'] }}</h3>
         <!-- Display thumbnail image -->

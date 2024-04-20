@@ -15,6 +15,19 @@
             align-items: center;
             min-height: 100vh;
         }
+        header {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header img {
+            height: 40px;
+            width: auto;
+        }
         .container {
             max-width: 500px;
             padding: 20px;
@@ -60,38 +73,45 @@
             border-radius: 5px;
             text-align: justify;
         }
-        #video-recommendations {
-            margin-top: 40px;
-            text-align: center;
-        }
-        #video-recommendations h2 {
-            color: #333;
-        }
-        #video-recommendations iframe {
-            margin-top: 20px;
-        }
         #hahaa {
-            /* Add your custom styles here */
             background-color: red;
             color: white;
             border: none;
             cursor: pointer;
             width: auto;
             border-radius: 5px;
-            font-size: 12px; /* Adjust font size for smaller text */
-            position: relative; /* Position the button relative to the viewport */
-            top: -1.85em; /* Align the button to the top */
-            right: -41.4em; /* Align the button to the right */
+            font-size: 12px;
         }
+        #hahaaa {
+            background-color: teal;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: auto;
+            border-radius: 5px;
+            font-size: 12px;
+            display: inline-block;
+        }
+        .cont {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+}
     </style>
 </head>
 <body>
+
     <div class="container">
+        
         <div id="loading" style="display: none;">
-            <img src="chatgpt\static\ZKZg.gif" alt="Loading..." width="50" height="50">
-            <p>Loading...</p>
+            <p>Generating your personalized Video Recommendations! Please Wait.</p>
         </div>
+
+        <div class = "cont">
+        <button id="hahaaa"><a href="http://localhost:5173/home" style="text-decoration: none; color: white;">Go back Home</a></button>
         <button id="hahaa" onclick="closeServerAndRedirect()">X</button>
+        </div>
+
         <h1>Ask Khutruke</h1>
         <form method="post">
             <input type="text" name="text_input" id="textInput" placeholder="Ask me anything..." required>
@@ -107,12 +127,6 @@
         {% endif %}
     </div>
 
-    <div id="video-recommendations" style="display: none;">
-        <h2>Video Recommendations</h2>
-        <!-- Add your video recommendations here -->
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID_HERE" frameborder="0" allowfullscreen></iframe>
-        <!-- Add more iframes for additional video recommendations -->
-    </div>
 
     <script>
         // Retrieve input value from local storage

@@ -50,7 +50,7 @@ def quit_server():
         file.write(result)
     
     launch_second_app()  # Launch the second Flask app
-    os._exit(0)  # Exit the server process
+    
     
 
 app.route('/send_data', methods=['POST'])

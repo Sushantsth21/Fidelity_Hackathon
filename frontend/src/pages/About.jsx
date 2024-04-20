@@ -33,9 +33,9 @@ function About() {
       </p>
       <h2 className="text-4xl font-bold text-white mb-4">Contact Us</h2>
       <p className="text-white text-lg mb-6 leading-relaxed">
-        Have questions? Our team is ready to help you. Reach out to us at 
-        <a href="mailto:info@fidelityfinance.com" className="font-bold text-lime-400 hover:text-lime-500 underline transition duration-300 ease-in-out">
-          info@fidelityfinance.com
+        Have questions? Our team is ready to help you. Reach out to us at  
+        <a href="mailto:team4@gmail.com" className="font-bold text-lime-400 hover:text-lime-500 underline transition duration-300 ease-in-out">
+        &nbsp; team4@gmail.com&nbsp;
         </a>.
       </p>
     </div>

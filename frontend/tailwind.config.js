@@ -3,7 +3,13 @@ const flowbite = require("flowbite-react/tailwind");
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", flowbite.content()],
   theme: {
-    extend: {},
+    extend: {
+      background_color:{
+        'dark-green': '#006044',
+        'light-green': '#76A923',
+        'khaki-brown': '#AF8A49'
+      }
+    },
   },
   plugins: [flowbite.plugin()],
 };

@@ -1,1 +1,1 @@
-"Business", "ETF", "Finance"
+Business, ETF, Finance

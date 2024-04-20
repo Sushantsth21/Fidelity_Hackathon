@@ -1,0 +1,19 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 60%; /* occupy 60% of the middle screen */
+    margin: 0 auto; /* center the container */
+}
+
+.container > div {
+    border: 1px solid black; /* just for visualization */
+}
+
+.left-column, .right-column {
+    grid-row: 1;
+}
+
+.middle-column {
+    grid-row: 1;
+    grid-column: 2 / 3; /* span from column 2 to column 3 */
+}

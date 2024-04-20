@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Recommendations</title>
+<style>
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .column {
+        flex: 0 0 30%;
+        max-width: 30%;
+        padding: 20px;
+        border: 1px solid #ccc;
+        text-align: center;
+        box-sizing: border-box;
+        margin: 10px;
+    }
+</style>
+</head>
+<body>
+
+<h1>Recommended Videos</h1>
+
+<div class="container">
+    {% for video in recommended_videos.iterrows() %}
+    <div class="column">
+        <h3>{{ video[1]['Title'] }}</h3>
+        <p><a href="{{ video[1]['Link'] }}">Watch Video</a></p>
+    </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>

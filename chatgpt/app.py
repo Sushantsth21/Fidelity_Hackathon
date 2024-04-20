@@ -5,7 +5,6 @@ import numpy
 import re 
 from dotenv import load_dotenv
 import openai
-from sklearn.metrics.pairwise import cosine_similarity
 import warnings
 
 warnings.filterwarnings("ignore")
@@ -82,5 +81,5 @@ def extract_keywords(user_inputs):
         return f"An error occurred: {str(e)}"
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
     

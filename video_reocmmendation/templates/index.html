@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Recommendations</title>
+<style>
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .column {
+        flex: 0 0 30%;
+        max-width: 30%;
+        padding: 20px;
+        border: 1px solid #ccc;
+        text-align: center;
+        box-sizing: border-box;
+        margin: 10px;
+    }
+
+    .thumbnail {
+        width: 100%;
+        height: auto;
+    }
+</style>
+</head>
+<body>
+
+<h1>Khutruke Recommended Videos</h1>
+<h3> Khutruke recommends you these videos based on out wonderful talk. Please have a look at these videos whenever you are free.</h3>
+<div class="container">
+    <button id="hahaa" style="position: absolute; top: 10px; right: 10px; background-color: red; border: none; cursor: pointer; color: white; padding: 10px 20px; font-size: 16px; border-radius: 5px;"><a href="http://localhost:5173/" style="text-decoration: none;">X</a></button>
+    {% for index, video in recommended_videos.iterrows() %}
+    <div class="column">
+        <h3>{{ video['Title'] }}</h3>
+        <!-- Display thumbnail image -->
+        <img class="thumbnail" src="{{ video['Thumbnail'] }}" alt="Thumbnail">
+        <p><a href="{{ video['Link'] }}">Watch Video</a></p>
+    </div>
+    {% endfor %}
+</div>
+<SCRIPT>
+    function closeServerAndRedirect() {
+            // Show loading animation
+            document.getElementById('loading').style.display = 'block';
+
+            // Make an AJAX request to the server shutdown route
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/quit", true);
+            xhr.send();
+            document.getElementById('loading').style.display = 'none';
+            // Redirect to the new HTML file
+            window.location.href = "Home.jsx";
+    }
+</SCRIPT>
+
+</body>
+</html>

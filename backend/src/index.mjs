@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import { MongoURL } from "./config.mjs";
+import { MongoURL } from "./config.js";
 import userRoutes from "./routes/user.route.mjs";
 import authRoutes from "./routes/auth.route.mjs";
 

@@ -2,7 +2,7 @@ import User from "../models/user.model.mjs";
 import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.mjs";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../config.mjs";
+import { JWT_SECRET } from "../config.js";
 
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -15,7 +15,7 @@ export const signup = async (req, res, next) => {
     email === "" ||
     password === ""
   ) {
-    next(errorHandler(400, "All fields are requried"));
+    next(errorHandler(400, "All fields are required"));
   }
 
   const hashedPassword = bcryptjs.hashSync(password, 10);
@@ -28,7 +28,7 @@ export const signup = async (req, res, next) => {
 
   try {
     await newUser.save();
-    res.json("Signup Successful");
+    res.json("Signup successful");
   } catch (error) {
     next(error);
   }
@@ -42,7 +42,10 @@ export const signin = async (req, res, next) => {
   }
 
   try {
+    console.log("Attempting to find user:", email);
     const validUser = await User.findOne({ email });
+    console.log("Database response:", validUser);
+
     if (!validUser) {
       return next(errorHandler(404, "User not found"));
     }
@@ -50,7 +53,10 @@ export const signin = async (req, res, next) => {
     if (!validPassword) {
       return next(errorHandler(400, "Invalid password"));
     }
-    const token = jwt.sign({ id: validUser._id }, JWT_SECRET);
+    const token = jwt.sign(
+      { id: validUser._id, isAdmin: validUser.isAdmin },
+      JWT_SECRET
+    );
 
     const { password: pass, ...rest } = validUser._doc;
 

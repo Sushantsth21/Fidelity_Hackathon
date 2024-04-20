@@ -2,7 +2,9 @@ from flask import Flask, render_template
 import pandas as pd
 import numpy as np
 import re
+import os
 import requests
+from bs4 import BeautifulSoup
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 import nltk
@@ -81,6 +83,11 @@ def receive_data():
     # Process received data here
     return "Data received successfully by the second Flask app."
 # Flask route
+
+@app.route('/quit', methods=['GET'])
+def quit_server():
+    os._exit(0)  # Exit the server process
+
 @app.route('/')
 def index():
     # Assuming the query is obtained from a form submission or elsewhere
@@ -90,8 +97,33 @@ def index():
     # Recommend videos based on the query
     recommended_videos = recommend_videos(query, 6)
 
+    # Extract thumbnails for recommended videos
+    for index, row in recommended_videos.iterrows():
+        thumbnail_url = scrape_youtube_videos(row['Link'])
+        recommended_videos.at[index, 'Thumbnail'] = thumbnail_url
     # Pass the recommended videos to the template
     return render_template('index.html', recommended_videos=recommended_videos)
+
+
+def scrape_youtube_videos(url):
+    # Send a GET request to the URL
+    response = requests.get(url)
+
+    # Parse the HTML content
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    # Find all video elements
+    thumbnail_links = soup.find_all('link', itemprop='thumbnailUrl')
+    
+        # Extract the href attributes
+    thumbnails = [link['href'] for link in thumbnail_links]
+
+    # Print the extracted thumbnail URLs
+    for thumbnail in thumbnails:
+        output = thumbnail
+    return output
+
+
 
 if __name__ == "__main__":
     app.run(debug=True,port= 5001)

@@ -65,7 +65,7 @@ def send_data():
 def get_openai_response(user_input):
     try:
         completion = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4",
             messages=[
                 {"role": "system", "content": "You are a helpful financial assistant. Provide a feedback within 3 sentences. Dont forget you are  Khutruke,  dedicated virtual financial assistant proudly brought to you by FidelityXOpenAI"},
                 {"role": "user", "content": user_input}

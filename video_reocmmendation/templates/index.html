@@ -21,6 +21,11 @@
         box-sizing: border-box;
         margin: 10px;
     }
+
+    .thumbnail {
+        width: 100%;
+        height: auto;
+    }
 </style>
 </head>
 <body>
@@ -28,13 +33,30 @@
 <h1>Recommended Videos</h1>
 
 <div class="container">
-    {% for video in recommended_videos.iterrows() %}
+    <button id="hahaa" onclick="closeServerAndRedirect()">X</button>
+    {% for index, video in recommended_videos.iterrows() %}
     <div class="column">
-        <h3>{{ video[1]['Title'] }}</h3>
-        <p><a href="{{ video[1]['Link'] }}">Watch Video</a></p>
+        <h3>{{ video['Title'] }}</h3>
+        <!-- Display thumbnail image -->
+        <img class="thumbnail" src="{{ video['Thumbnail'] }}" alt="Thumbnail">
+        <p><a href="{{ video['Link'] }}">Watch Video</a></p>
     </div>
     {% endfor %}
 </div>
+<SCRIPT>
+    function closeServerAndRedirect() {
+            // Show loading animation
+            document.getElementById('loading').style.display = 'block';
+
+            // Make an AJAX request to the server shutdown route
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/quit", true);
+            xhr.send();
+            document.getElementById('loading').style.display = 'none';
+            // Redirect to the new HTML file
+            window.location.href = "Home.jsx";
+    }
+</SCRIPT>
 
 </body>
 </html>

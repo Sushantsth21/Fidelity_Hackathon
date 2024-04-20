@@ -2,6 +2,7 @@ from flask import Flask, render_template
 import pandas as pd
 import numpy as np
 import re
+import requests
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 import nltk
@@ -73,6 +74,12 @@ def recommend_videos(query, n):
     recommended_videos.sort_values(by='finalscore', ascending=False, inplace=True)
     return recommended_videos[['Title', 'Link', 'Priority', 'similarity', 'finalscore']]
 
+
+@app.route('/receive_data', methods=['POST'])
+def receive_data():
+    data = requests.json.get('data')
+    # Process received data here
+    return "Data received successfully by the second Flask app."
 # Flask route
 @app.route('/')
 def index():
@@ -87,4 +94,4 @@ def index():
     return render_template('index.html', recommended_videos=recommended_videos)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True,port= 5001)

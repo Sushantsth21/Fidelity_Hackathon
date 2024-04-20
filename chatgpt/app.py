@@ -3,9 +3,12 @@ import os
 import pandas
 import numpy
 import re 
+import requests
 from dotenv import load_dotenv
 import openai
 import warnings
+import subprocess
+import time
 
 warnings.filterwarnings("ignore")
 
@@ -18,7 +21,8 @@ if api_key is None:
 
 # Set the OpenAI API key
 openai.api_key = api_key
-
+def launch_second_app():
+    subprocess.Popen(["python", "video_reocmmendation/app.py"])
 app = Flask(__name__)
 user_inputs = []  # List to store user inputs
 
@@ -44,7 +48,19 @@ def quit_server():
     result = extract_keywords(user_inputs)
     with open("result.txt", "w") as file:
         file.write(result)
+    launch_second_app()  # Launch the second Flask app
+    time.sleep(13)  # Introduce a delay of 5 seconds
     os._exit(0)  # Exit the server process
+    
+
+app.route('/send_data', methods=['POST'])
+def send_data():
+    user_inputs = request.json.get('user_inputs')
+    result = extract_keywords(user_inputs)
+    data = {'result': result}
+    response = requests.post('http://localhost:5001/receive_data', json=data)
+    return response.text
+
 
 def get_openai_response(user_input):
     try:
@@ -81,5 +97,5 @@ def extract_keywords(user_inputs):
         return f"An error occurred: {str(e)}"
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=False, port= 5000)
     

@@ -7,8 +7,9 @@ from dotenv import load_dotenv
 import openai
 from sklearn.metrics.pairwise import cosine_similarity
 import warnings
+
 warnings.filterwarnings("ignore")
-extracted_keywords = ""
+
 # Load environment variables
 load_dotenv()
 api_key = os.getenv('OPENAI_API_KEY')
@@ -23,9 +24,8 @@ app = Flask(__name__)
 user_inputs = []  # List to store user inputs
 
 @app.route('/', methods=['GET', 'POST'])
-
 def index():
-    global user_inputs,extracted_keywords  # Declare user_inputs as global to access and modify it within the function
+    global user_inputs  # Declare user_inputs as global to access and modify it within the function
     response_text = ""
     if request.method == 'POST':
         user_question = request.form['text_input']
@@ -40,6 +40,13 @@ def index():
 
     return render_template('index.html', response_text=response_text)
 
+@app.route('/quit', methods=['GET'])
+def quit_server():
+    result = extract_keywords(user_inputs)
+    with open("result.txt", "w") as file:
+        file.write(result)
+    os._exit(0)  # Exit the server process
+
 def get_openai_response(user_input):
     try:
         completion = openai.ChatCompletion.create(
@@ -53,11 +60,9 @@ def get_openai_response(user_input):
     except Exception as e:
         return f"An error occurred: {str(e)}"
 
-openai.api_key = api_key   
-
 def extract_keywords(user_inputs):
     if not user_inputs:
-        return "The text for extraction was not provided. Please provide the text."
+        return ""  # Return an empty string if no user inputs are provided
 
     all_user_inputs = ' '.join(user_inputs)
     all_user_inputs_lower = all_user_inputs.lower() 
@@ -76,8 +81,6 @@ def extract_keywords(user_inputs):
     except Exception as e:
         return f"An error occurred: {str(e)}"
 
-
 if __name__ == "__main__":
     app.run(debug=True)
-    print(extract_keywords(user_inputs))
-
+    

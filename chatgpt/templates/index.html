@@ -70,10 +70,24 @@
         #video-recommendations iframe {
             margin-top: 20px;
         }
+        #hahaa {
+            /* Add your custom styles here */
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: auto;
+            border-radius: 5px;
+            font-size: 12px; /* Adjust font size for smaller text */
+            position: relative; /* Position the button relative to the viewport */
+            top: -1.85em; /* Align the button to the top */
+            right: -41.4em; /* Align the button to the right */
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <button id="hahaa" onclick="closeServerAndRedirect()">X</button>
         <h1>Ask Khutruke</h1>
         <form method="post">
             <input type="text" name="text_input" id="textInput" placeholder="Ask me anything..." required>
@@ -116,6 +130,19 @@
             document.getElementById('Haha').style.display = 'block'; // Show the paragraph with id "Haha"
             document.getElementById('Sad').style.display = 'none'; // Show the paragraph with id "Haha"
         });
+        function closeApp() {
+            document.querySelector('.response').style.display = 'none'; // Hide the response section
+            document.getElementById('video-recommendations').style.display = 'block'; // Show the video recommendations
+        }
+        function closeServerAndRedirect() {
+            // Make an AJAX request to the server shutdown route
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/quit", true);
+            xhr.send();
+
+            // Redirect to the new HTML file
+            window.location.href = "video_reocmmendation/movies.html";
+        }
     </script>
     
 </body>

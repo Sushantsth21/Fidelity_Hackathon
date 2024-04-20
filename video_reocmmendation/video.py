@@ -82,9 +82,11 @@ vect = CountVectorizer(stop_words= stop_words,
 nltk.download('punkt')              #this needs to be added or else the code wont run.
 nltk.download('wordnet')
 X = vect.fit_transform(df.Keywords)
+
 def extract_text(input_string):
     text_only = re.sub(r'[^a-zA-Z0-9\s]', '', input_string)
     return text_only.strip()
+
 def recommend_videos(query, vect, X, df,n):
     # Transform the query to the same vector space as the corpus
     query_vect = vect.transform([query])
@@ -112,9 +114,14 @@ def recommend_videos(query, vect, X, df,n):
     return recommended_videos[['Title', 'Link', 'Priority', 'similarity', 'finalscore']]
 
 if __name__ == "__main__":
+    
+    with open("result.txt", "r") as file:
+        query = file.read().strip()  # Read the query and strip any leading/trailing whitespace
+
     # Example usage
-    query = "bitcoin"  # Assuming you have a query string
+
     query_vector = extract_text(query)  # Assuming extract_text extracts vector representation of text
     n = 10  # Number of recommended videos
     recommended_videos = recommend_videos(query_vector, vect, X, df, n)  # Assuming recommend_videos returns recommended videos
     print(recommended_videos)  # Print recommended videos
+

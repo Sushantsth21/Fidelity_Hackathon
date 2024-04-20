@@ -2,17 +2,103 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ask OpenAI</title>
+    <title>Ask Khutruke</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 500px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        input[type="text"] {
+            width: calc(100% - 100px);
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button[type="submit"], button[type="button"] {
+            width: 100px;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+            margin-top: 10px;
+            margin-bottom: -2px;
+        }
+        button[type="submit"]:hover, button[type="button"]:hover {
+            background-color: #0056b3;
+        }
+        .response {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            text-align: justify;
+        }
+        
+    </style>
 </head>
 <body>
-    <h1>Ask OpenAI</h1>
-    <form method="post">
-        <input type="text" name="text_input" placeholder="Ask me anything..." required>
-        <button type="submit">Submit</button>
-    </form>
-    {% if response_text %}
-        <h2>Response from OpenAI:</h2>
-        <p>{{ response_text }}</p>
-    {% endif %}
+    <div class="container">
+        <h1>Ask Khutruke</h1>
+        <form method="post">
+            <input type="text" name="text_input" id="textInput" placeholder="Ask me anything..." required>
+            <button type="submit">Submit</button>
+            <button type="button" id="clearButton" >Clear</button>
+        </form>
+        {% if response_text %}
+        <div class="response">
+            <h2>Response from Khutruke:</h2>
+            <p>{{ response_text }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        // Retrieve input value from local storage
+        const savedInput = localStorage.getItem('userInput');
+        if (savedInput) {
+            document.getElementById('textInput').value = savedInput;
+        }
+    
+        // Save input value to local storage when form submitted
+        document.querySelector('form').addEventListener('submit', function() {
+            const userInput = document.getElementById('textInput').value;
+            localStorage.setItem('userInput', userInput);
+        });
+    
+        // Display introduction message when "Clear" button clicked
+        document.getElementById('clearButton').addEventListener('click', function() {
+            document.getElementById('textInput').value = '';
+            localStorage.removeItem('userInput');
+            document.querySelector('.response').innerHTML = '<h2>Response from Khutruke:</h2><p>{{ introduction_message }}</p>';
+        });
+    </script>
+    
 </body>
 </html>

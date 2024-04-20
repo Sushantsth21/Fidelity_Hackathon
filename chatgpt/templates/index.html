@@ -74,7 +74,8 @@
         {% if response_text %}
         <div class="response">
             <h2>Response from Khutruke:</h2>
-            <p>{{ response_text }}</p>
+            <p id = "Haha" style="display: none;">Greetings! I'm Khutruke, your dedicated virtual financial assistant proudly brought to you by FidelityXOpenAI. How may I be of service to you today?</p>
+            <p id = "Sad">{{ response_text }}</p>
         </div>
         {% endif %}
     </div>
@@ -96,9 +97,11 @@
         document.getElementById('clearButton').addEventListener('click', function() {
             document.getElementById('textInput').value = '';
             localStorage.removeItem('userInput');
-            document.querySelector('.response').innerHTML = '<h2>Response from Khutruke:</h2><p>{{ introduction_message }}</p>';
+            document.getElementById('Haha').style.display = 'block'; // Show the paragraph with id "Haha"
+            document.getElementById('Sad').style.display = 'none'; // Show the paragraph with id "Haha"
         });
     </script>
+    
     
 </body>
 </html>

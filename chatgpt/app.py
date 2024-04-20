@@ -14,13 +14,16 @@ if api_key is None:
 openai.api_key = api_key
 
 app = Flask(__name__)
+user_inputs = []  # List to store user inputs
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    global user_inputs  # Declare user_inputs as global to access and modify it within the function
     response_text = ""
     if request.method == 'POST':
         user_question = request.form['text_input']
         response_text = get_openai_response(user_question)
+        user_inputs.append(user_question)  # Append the user input to the list
     else:
         # Display introduction message when the page is loaded for the first time or when "Clear" is clicked
         response_text = introduction_message
@@ -42,3 +45,7 @@ def get_openai_response(user_input):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+# Concatenate all user inputs into a single string
+all_user_inputs = ' '.join(user_inputs)
+print(all_user_inputs)

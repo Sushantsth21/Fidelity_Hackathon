@@ -34,25 +34,36 @@ export default function Header() {
             </Link>
 
             <div className='flex gap-2 md:order-2'>
-                {currentUser ? (
-                    <React.Fragment>
-                        <div className="text-sm sm:text-base">Hello, {currentUser.username}</div>
-                        <span onClick={handleSignOut} className="cursor-pointer">Sign Out</span>
-                    </React.Fragment>
-                ) : (
-                    <React.Fragment>
-                        <Link to='/signup'>
-                            <Button gradientDuoTone={'purpleToBlue'} outline>
-                                Sign Up
-                            </Button>
-                        </Link>
-                        <Link to='/signin'>
-                            <Button gradientDuoTone={'purpleToBlue'} outline>
-                                Sign In
-                            </Button>
-                        </Link>
-                    </React.Fragment>
-                )}
+            <React.Fragment>
+            {currentUser ? (
+                <div className="flex items-center space-x-4">
+                <div className="text-sm sm:text-base text-white bg-blue-600 py-2 px-4 rounded-full shadow-lg transition duration-300 hover:bg-blue-700">
+                    Hello, {currentUser.username}
+                </div>
+                <button 
+                    onClick={handleSignOut} 
+                    className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300">
+                    Sign Out
+                </button>
+            </div>
+            
+            ) : (
+                <React.Fragment>
+                <Link to='/signup'>
+                    <Button gradientDuoTone={'purpleToBlue'} outline className="text-white border border-transparent hover:border-purple-700 rounded py-2 px-4">
+                    Sign Up
+                    </Button>
+                </Link>
+                <Link to='/signin'>
+                    <Button gradientDuoTone={'purpleToBlue'} outline className="ml-2 text-white border border-transparent hover:border-purple-700 rounded py-2 px-4">
+                    Sign In
+                    </Button>
+                </Link>
+                </React.Fragment>
+            )}
+            </React.Fragment>
+
+
                 <Navbar.Toggle />
             </div>
             <Navbar.Collapse>

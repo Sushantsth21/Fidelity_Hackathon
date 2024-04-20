@@ -1,11 +1,30 @@
 import { Navbar, Button } from 'flowbite-react';
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {signOutSuccess} from '../redux/user/userSlice'
+
 
 export default function Header() { 
     const path = useLocation().pathname;
     const { currentUser } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+
+    const handleSignOut = async () => {
+        try {
+          const res = await fetch('/api/user/signout', {
+            method: 'POST',
+          });
+          const data = await res.json();
+          if (!res.ok) {
+            console.log(data.message);
+          } else {
+            dispatch(signOutSuccess());
+          }
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
 
     return (
         <Navbar className='border-b-2'>
@@ -16,7 +35,10 @@ export default function Header() {
 
             <div className='flex gap-2 md:order-2'>
                 {currentUser ? (
-                    <div className="text-sm sm:text-base">Hello, {currentUser.username}</div>
+                    <React.Fragment>
+                        <div className="text-sm sm:text-base">Hello, {currentUser.username}</div>
+                        <span onClick={handleSignOut} className="cursor-pointer">Sign Out</span>
+                    </React.Fragment>
                 ) : (
                     <React.Fragment>
                         <Link to='/signup'>

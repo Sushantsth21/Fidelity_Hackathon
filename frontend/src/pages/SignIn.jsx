@@ -1,8 +1,7 @@
 import {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Label, TextInput, Button, Alert, Spinner } from 'flowbite-react';
-import { set } from 'mongoose';
-import { signInSuccess, signInSuccess, signInFailure, signInStart } from '../redux/user/userSlice';
+import { signInSuccess, signInFailure, signInStart } from '../redux/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function SignIn() {

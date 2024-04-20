@@ -1,8 +1,14 @@
 from flask import Flask, render_template, request
 import os
+import pandas
+import numpy
+import re 
 from dotenv import load_dotenv
 import openai
-
+from sklearn.metrics.pairwise import cosine_similarity
+import warnings
+warnings.filterwarnings("ignore")
+extracted_keywords = ""
 # Load environment variables
 load_dotenv()
 api_key = os.getenv('OPENAI_API_KEY')
@@ -17,13 +23,17 @@ app = Flask(__name__)
 user_inputs = []  # List to store user inputs
 
 @app.route('/', methods=['GET', 'POST'])
+
 def index():
-    global user_inputs  # Declare user_inputs as global to access and modify it within the function
+    global user_inputs,extracted_keywords  # Declare user_inputs as global to access and modify it within the function
     response_text = ""
     if request.method == 'POST':
         user_question = request.form['text_input']
         response_text = get_openai_response(user_question)
         user_inputs.append(user_question)  # Append the user input to the list
+        
+        # Extract keywords after receiving the user input
+        extracted_keywords = extract_keywords(user_inputs)
     else:
         # Display introduction message when the page is loaded for the first time or when "Clear" is clicked
         response_text = introduction_message
@@ -43,9 +53,31 @@ def get_openai_response(user_input):
     except Exception as e:
         return f"An error occurred: {str(e)}"
 
+openai.api_key = api_key   
+
+def extract_keywords(user_inputs):
+    if not user_inputs:
+        return "The text for extraction was not provided. Please provide the text."
+
+    all_user_inputs = ' '.join(user_inputs)
+    all_user_inputs_lower = all_user_inputs.lower() 
+    unique_user_inputs = list(set(all_user_inputs_lower.split()))
+    unique_user_inputs.append("finance")
+    result_string = ' '.join(unique_user_inputs) + " "
+    try:
+        completion2 = openai.ChatCompletion.create(
+            model="gpt-4",
+            messages=[
+                {"role": "system", "content": "Extract 5 keywords related to finance from the text provided. Also, only write 5 outputs and nothing else."},
+                {"role": "user", "content": result_string}
+            ]
+        )
+        return completion2.choices[0].message['content']
+    except Exception as e:
+        return f"An error occurred: {str(e)}"
+
+
 if __name__ == "__main__":
     app.run(debug=True)
+    print(extract_keywords(user_inputs))
 
-# Concatenate all user inputs into a single string
-all_user_inputs = ' '.join(user_inputs)
-print(all_user_inputs)

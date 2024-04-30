@@ -65,7 +65,7 @@ def send_data():
 def get_openai_response(user_input):
     try:
         completion = openai.ChatCompletion.create(
-            model="gpt-4",
+            model="GPT-4",
             messages=[
                 {"role": "system", "content": "You are a helpful financial assistant. Provide a feedback within 3 sentences. Dont forget you are  Khutruke,  dedicated virtual financial assistant proudly brought to you by FidelityXOpenAI"},
                 {"role": "user", "content": user_input}
@@ -86,7 +86,7 @@ def extract_keywords(user_inputs):
     result_string = ' '.join(unique_user_inputs) + " "
     try:
         completion2 = openai.ChatCompletion.create(
-            model="gpt-4",
+            model="GPT-4",
             messages=[
                 {"role": "system", "content": "Extract 5 keywords related to finance from the text provided. Also, only write 5 outputs and nothing else."},
                 {"role": "user", "content": result_string}

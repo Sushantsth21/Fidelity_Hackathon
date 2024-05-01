@@ -1,1 +1,1 @@
-Loan, Car, Fidelity, Finance, Interest
+Car, Bitcoin, Loan, Offer, Fidelity Finance
